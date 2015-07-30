@@ -112,7 +112,7 @@
           },
           "id": 1,
           "interval": "",
-          "leftYAxisLabel": "Mhz",
+          "leftYAxisLabel": "CPU time/sec",
           "legend": {
             "avg": false,
             "current": false,
@@ -138,10 +138,11 @@
             {
               "alias": "",
               "column": "cpu_cumulative_usage",
-              "function": "median",
+              "function": "derivative",
               "groupby_field": "container_name",
               "query": "select container_name, median(cpu_cumulative_usage) from \"stats\" where $timeFilter group by time($interval), container_name order asc",
-              "series": "stats"
+              "series": "stats",
+              "interval": "2s"
             }
           ],
           "timeFrom": null,
@@ -155,7 +156,7 @@
           "x-axis": true,
           "y-axis": true,
           "y_formats": [
-            "bps",
+            "ns",
             "short"
           ]
         }
