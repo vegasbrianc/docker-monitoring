@@ -9,7 +9,7 @@ InfluxSrv:
   environment:
     - PRE_CREATE_DB=cadvisor
 cadvisor:
-  image: "google/cadvisor:0.14.0"
+  image: "google/cadvisor"
   volumes:
     - "/:/rootfs:ro"
     - "/var/run:/var/run:rw"
