@@ -1,34 +1,48 @@
-InfluxSrv:
-  image: "tutum/influxdb:0.8.8"
+influxdbData:
+  image: busybox
+  volumes:
+    - ./data/influxdb:/data
+
+influxdb:
+  image: tutum/influxdb:0.9
+  restart: always
+  environment:
+    - PRE_CREATE_DB=cadvisor
   ports:
     - "8083:8083"
     - "8086:8086"
   expose:
     - "8090"
     - "8099"
-  environment:
-    - PRE_CREATE_DB=cadvisor
+  volumes_from:
+    - "influxdbData"
+
 cadvisor:
-  image: "google/cadvisor"
-  volumes:
-    - "/:/rootfs:ro"
-    - "/var/run:/var/run:rw"
-    - "/sys:/sys:ro"
-    - "/var/lib/docker/:/var/lib/docker:ro"
+  image: google/cadvisor:v0.20.5
   links:
-    - "InfluxSrv:influxsrv"
+    - influxdb:influxsrv
+  command: -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influxsrv:8086
+  restart: always
   ports:
-    - "8080:8080"
-  command: "-storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influxsrv:8086"
+    - "9090:8080"
+  volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:rw
+    - /sys:/sys:ro
+    - /var/lib/docker/:/var/lib/docker:ro
+
 grafana:
-  image: "grafana/grafana:2.0.2"
+  image: grafana/grafana:2.6.0
+  restart: always
+  links:
+    - influxdb:influxsrv
   ports:
     - "3000:3000"
   environment:
-    - INFLUXDB_HOST=localhost
+    - HTTP_USER=admin
+    - HTTP_PASS=admin
+    - INFLUXDB_HOST=influxsrv
     - INFLUXDB_PORT=8086
     - INFLUXDB_NAME=cadvisor
     - INFLUXDB_USER=root
     - INFLUXDB_PASS=root
-  links:
-    - "InfluxSrv:influxsrv"
