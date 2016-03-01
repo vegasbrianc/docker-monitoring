@@ -24,7 +24,7 @@ cadvisor:
   command: -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influxsrv:8086
   restart: always
   ports:
-    - "9090:8080"
+    - "8080:8080"
   volumes:
     - /:/rootfs:ro
     - /var/run:/var/run:rw
