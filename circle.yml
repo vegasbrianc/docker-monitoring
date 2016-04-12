@@ -6,3 +6,7 @@ test:
   pre:
     - docker-compose pull
     - docker-compose up -d
+    - curl --retry 10 --retry-delay 5 -v http://localhost:8080
+    - curl --retry 10 --retry-delay 5 -v http://localhost:8083
+    - curl --retry 10 --retry-delay 5 -v http://localhost:3000
+    
