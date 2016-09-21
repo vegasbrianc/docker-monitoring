@@ -14,7 +14,7 @@ test:
   pre:
     - docker-compose pull
     - docker-compose up -d
-    - curl --retry 10 --retry-delay 5 -v 0.0.0.0:8080
-    - curl --retry 10 --retry-delay 5 -v 0.0.0.0:3000
+    - curl -v 0.0.0.0:8080
+    - curl -v 0.0.0.0:3000
     #test
     
