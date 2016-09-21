@@ -1,9 +1,12 @@
-influxdbData:
+version: '2'
+
+services:
+ influxdbData:
   image: busybox
   volumes:
     - ./data/influxdb:/data
 
-influxdb:
+ influxdb:
   image: tutum/influxdb:0.9
   restart: always
   environment:
@@ -16,10 +19,8 @@ influxdb:
     - "8099"
   volumes_from:
     - "influxdbData"
-  depends_on:
-    - "cadvisor"
 
-cadvisor:
+ cadvisor:
   image: google/cadvisor:v0.20.5
   links:
     - influxdb:influxsrv
@@ -33,7 +34,7 @@ cadvisor:
     - /sys:/sys:ro
     - /var/lib/docker/:/var/lib/docker:ro
 
-grafana:
+ grafana:
   image: grafana/grafana:2.6.0
   restart: always
   links:
