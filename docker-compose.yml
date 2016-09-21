@@ -16,6 +16,8 @@ influxdb:
     - "8099"
   volumes_from:
     - "influxdbData"
+  depends_on:
+    - "cadvisor"
 
 cadvisor:
   image: google/cadvisor:v0.20.5
