@@ -1,5 +1,5 @@
 ## Docker Monitoring Grafana JSON Dashboard
-[![Circle CI](https://circleci.com/gh/vegasbrianc/docker-monitoring.svg?style=svg)](https://circleci.com/gh/vegasbrianc/docker-monitoring)
+[![Build Status](https://travis-ci.org/vegasbrianc/docker-monitoring.svg?branch=master)](https://travis-ci.org/vegasbrianc/docker-monitoring)
 
 After publishing the article for Docker Monitoring based on cAdvisor, InfluxDB, and Grafana the request came up to share the Grafana Dashboards that were referenced in the article - [Docker Monitoring Article](https://www.brianchristner.io/how-to-setup-docker-monitoring/)
 
