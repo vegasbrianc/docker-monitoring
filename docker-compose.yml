@@ -21,7 +21,7 @@ services:
     - "influxdbData"
 
  cadvisor:
-  image: google/cadvisor:v0.20.5
+  image: google/cadvisor:v0.29.0
   links:
     - influxdb:influxsrv
   command: -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influxsrv:8086
